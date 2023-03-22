@@ -4,24 +4,41 @@ import javax.swing.JOptionPane;
 
 public class Ex01 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("Insira seu código de funcionário: ");
+            final String codigo = sc.nextLine();
 
-        System.out.println("Insira o primeiro numero inteiro: ");
-        double primeiro = sc.nextDouble(); 
+            if (codigo.length()  != 7) {
+                System.out.println("Código inválido");
+            
+            } else if (codigo.startsWith("BR")||codigo.endsWith("X")) {
+                System.out.println("Código válido");
 
-        System.out.println("Insira o segundo numero inteiro: ");
-        double segundo = sc.nextDouble(); 
+            } else {
+                final int val = Integer.parseInt(codigo, 2, 6, 10);
+
+                if (val < 1 || val > 9999) {
+                System.out.println("Código inválido");
+
+                } else {
+                    System.out.println("Código válido");
+
+                }
+            }
 
 
-        System.out.println("Insira o terceiro numero inteiro: ");
-        double terceiro = sc.nextDouble(); 
-        
 
-        double mediaAritmetica = (primeiro+segundo+terceiro)/3;
 
-        System.out.println("A media aritmetica dos numeros é: " + mediaAritmetica);
 
-       
+
+        } catch (Exception ex) {
+            System.out.println("Código inválido");
+        }
+    } 
+    
+}
+
+
 
         
     }
