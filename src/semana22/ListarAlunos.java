@@ -1,29 +1,33 @@
 package semana22;
 
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ListarAlunos {
+ public static void main(String[] args) throws SQLException{
+        String url = "jdbc:mysql://localhost/estudante?user=estudante&password=estudante&useSSL=true";
+        Connection conn = DriverManager.getConnection(url);
 
-    public static void main(String[] args)  throws SQLException {
+        String sql = "SELECT* FROM alunos;";
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
 
-            // 1. abrir a conexão 
-    String url = "jdbc:mysql://localhost/estudante?user=estudante&password=esudante&useSSL=true";
-    Connection connection = DriverManager.getConnection(url);
+        while(rs.next()){
+            int id = rs.getInt("id");
+            String nome = rs.getString("nome");
+            String email = rs.getString("email");
+            boolean ativo = rs.getBoolean("ativo");
 
-            // 2. buscar todos os alunos
-    String sql = "SELECT * FROM alunos;";
+            System.out.println(id);
+            System.out.println(nome);
+            System.out.println(email);
+            System.out.println(ativo);
+        }
 
-     ResultSet rs = statement.executeQuery(sql);
-
-
-
-            // 3. fechar conexão
-    
-    connection.close();
-
-        
+        conn.close();
+        stm.close();
     }
-    
 }
